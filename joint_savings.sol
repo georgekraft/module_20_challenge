@@ -24,7 +24,8 @@ contract JointSavings {
     address public lastToWithdraw;
     uint public lastWithdrawAmount;
     uint public contractBalance;
-    }
+    uint public balance;
+    
     /*
     Inside the new contract define the following variables:
     - Two variables of type `address payable` named `accountOne` and `accountTwo`
@@ -42,12 +43,12 @@ contract JointSavings {
         /*
         Define a `require` statement that checks if the `recipient` is equal to either `accountOne` or `accountTwo`. The `requiere` statement returns the text `"You don't own this account!"` if it does not.
         */
-        require(recipient == accountOne or accountTwo, "You don't own this account");
+        require(recipient == accountOne || recipient == accountTwo, "You don't own this account");
 
         /*
         Define a `require` statement that checks if the `balance` is sufficient to accomplish the withdraw operation. If there are insufficient funds, the text `Insufficient funds!` is returned.
         */
-        require(balance >= amount, "Insufficient funds!);
+        require(address(this).balance >= amount, "Insufficient funds!");
 
         /*
         Add and `if` statement to check if the `lastToWithdraw` is not equal to (`!=`) to `recipient` If `lastToWithdraw` is not equal, then set it to the current value of `recipient`.
@@ -66,9 +67,6 @@ contract JointSavings {
         contractBalance = address(this).balance;
     }
     
-    
-      
-
     // Define a `public payable` function named `deposit`.
     function deposit() public payable {
 
